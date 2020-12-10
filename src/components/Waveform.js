@@ -6,15 +6,15 @@ import { AppContext } from "./AppContext";
 
 const formWaveSurferOptions = (ref) => ({
   container: ref,
-  waveColor: "lightgreen",
-  progressColor: "darkgreen",
-  cursorColor: "black",
-  barWidth: 3,
-  barRadius: 3,
+  waveColor: waveformSettings.waveColour,
+  progressColor: waveformSettings.progressColour,
+  cursorColor: waveformSettings.cursorColour,
+  barWidth: 5,
+  barRadius: 5,
   responsive: true,
   height: waveformSettings.height,
   // If true, normalize by the maximum peak instead of 1.0.
-  normalize: true,
+  normalize: false ,
   // Use the PeakCache to improve rendering speed of large waveforms.
   partialRender: true,
 });

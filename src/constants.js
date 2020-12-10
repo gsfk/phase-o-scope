@@ -19,13 +19,16 @@ export const DragAndDropSettings = {
     hoverColour: "grey",
     margin: "10px",
     padding: "30px",
-    borderRadius: "5px",
+    borderRadius: "5px", 
     border: "3px solid black",
 }
 
 export const waveformSettings = {
-    height: 50,
-    width: "50%"
+    height: 150,
+    waveColour: "#01dd01",
+    progressColour: "black",
+    cursorColor: "black",
+    bgColour: "#012401",
 }
 
 export const boxShadow = "0 0 15px rgba(0, 0, 0, 0.3)";
