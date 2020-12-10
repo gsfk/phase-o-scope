@@ -110,7 +110,8 @@ const Bottom = styled.div``;
 const WaveformWrapper = styled.div`
   margin: 10px;
   border: ${border};
-  background-color: ${waveformSettings.bgColour}
+  background-color: ${waveformSettings.bgColour};
+  box-shadow: ${boxShadow};
 `;
 
 

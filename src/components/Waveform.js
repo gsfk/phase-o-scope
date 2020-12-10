@@ -9,8 +9,8 @@ const formWaveSurferOptions = (ref) => ({
   waveColor: waveformSettings.waveColour,
   progressColor: waveformSettings.progressColour,
   cursorColor: waveformSettings.cursorColour,
-  barWidth: 5,
-  barRadius: 5,
+  barWidth: 1,
+  barRadius: 1,
   responsive: true,
   height: waveformSettings.height,
   // If true, normalize by the maximum peak instead of 1.0.
@@ -42,7 +42,7 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
-  const [volume, setVolume] = useState(0.8);
+  const [volume, setVolume] = useState(0.5);
 
   // create new WaveSurfer instance
   // On component mount
@@ -60,15 +60,13 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
     const analyserLeft = wavesurfer.current.backend.ac.createAnalyser();
     analyserLeft.minDecibels = oscilloscopeSettings.minDecibels;
     analyserLeft.maxDecibels = oscilloscopeSettings.maxDecibels;
-    analyserLeft.smoothingTimeConstant =
-      oscilloscopeSettings.smoothingTimeConstant;
+    analyserLeft.smoothingTimeConstant = oscilloscopeSettings.smoothingTimeConstant;
     analyserLeft.fftSize = oscilloscopeSettings.fftSize;
 
     const analyserRight = wavesurfer.current.backend.ac.createAnalyser();
     analyserRight.minDecibels = oscilloscopeSettings.minDecibels;
     analyserRight.maxDecibels = oscilloscopeSettings.maxDecibels;
-    analyserRight.smoothingTimeConstant =
-      oscilloscopeSettings.smoothingTimeConstant;
+    analyserRight.smoothingTimeConstant = oscilloscopeSettings.smoothingTimeConstant;
     analyserRight.fftSize = oscilloscopeSettings.fftSize;
 
     const splitter = wavesurfer.current.backend.ac.createChannelSplitter(2);

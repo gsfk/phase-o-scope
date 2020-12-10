@@ -39,7 +39,7 @@ const Wrapper = styled.div`
     color: #01dd01;
     background-color: ${props => props.isClicked ? "#404840" : "#012401"};
     width: 100%auto;
-    padding: 10px;
+    padding: 10px 20px;
     margin: 10px;
     border: 3px solid black;
     border-radius: 50px / 50px;
