@@ -23,26 +23,12 @@ const Oscilloscope = ({ analyserL, analyserR }) => {
     canvasContextRef.current.beginPath();
     const unitLength = (oscilloscopeSettings.width / dynamicRange) 
     // console.log({unitLength: unitLength})
-    let xMax = 0;
-    let yMax = 0;
+
     for (let i=0; i<bufferLength; i++){
-    
-      // const xVal = bufferR[i] * unitLength;
-      // // yValues inverted since canvas grid y-axis increases **downwards**
-      // const yVal = (dynamicRange - bufferL[i] - 1) * unitLength;
+      const xVal = bufferR[i] * unitLength;
 
-      const xVal = bufferR[i]
-      const yVal = bufferL[i]
-
-      if (xVal > xMax){
-        xMax = xVal;
-      }
-      if (yVal > yMax){
-        yMax = yVal;
-      }
-
-
-
+      // yValues inverted since canvas grid y-axis increases **downwards**
+      const yVal = (dynamicRange - bufferL[i] - 1) * unitLength;
       canvasContextRef.current.lineTo(xVal, yVal);
     }
     console.log({xMax: xMax, yMax: yMax})

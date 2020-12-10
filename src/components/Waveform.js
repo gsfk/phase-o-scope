@@ -66,7 +66,8 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
     const analyserRight = wavesurfer.current.backend.ac.createAnalyser();
     analyserRight.minDecibels = oscilloscopeSettings.minDecibels;
     analyserRight.maxDecibels = oscilloscopeSettings.maxDecibels;
-    analyserRight.smoothingTimeConstant = oscilloscopeSettings.smoothingTimeConstant;
+    analyserRight.smoothingTimeConstant =
+      oscilloscopeSettings.smoothingTimeConstant;
     analyserRight.fftSize = oscilloscopeSettings.fftSize;
 
     const splitter = wavesurfer.current.backend.ac.createChannelSplitter(2);
@@ -87,8 +88,8 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
     // merger.connect(contextObj.destination)
     wavesurfer.current.backend.setFilters([
       splitter,
-      analyserLeft,
-      analyserRight,
+    //   analyserLeft,      //do not connect analysers, this flattens to mono
+    //   analyserRight,
       merger,
     ]);
     setAnalyserL(analyserLeft);
