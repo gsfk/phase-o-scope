@@ -31,7 +31,7 @@ const Oscilloscope = ({ analyserL, analyserR }) => {
       const yVal = (dynamicRange - bufferL[i] - 1) * unitLength;
       canvasContextRef.current.lineTo(xVal, yVal);
     }
-    console.log({xMax: xMax, yMax: yMax})
+ 
     canvasContextRef.current.stroke();
 };
 
