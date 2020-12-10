@@ -60,7 +60,7 @@ const Oscilloscope = ({ analyserL, analyserR }) => {
     context.strokeStyle = "#00ab00";
     canvasContextRef.current = context;
     draw()
-  }, []);
+  }, [analyserL]);
 
   return <canvas width={oscilloscopeSettings.width} height={oscilloscopeSettings.width} ref={canvasRef} />;
 
