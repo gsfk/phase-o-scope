@@ -6,6 +6,8 @@ import {oscilloscopeSettings} from '../constants'
 const dynamicRange = 256;
 
 const Oscilloscope = ({ analyserL, analyserR }) => {
+  console.log({analyserR: analyserR})
+
   const canvasRef = useRef(null);
   const canvasContextRef = useRef(null);
 
@@ -23,15 +25,23 @@ const Oscilloscope = ({ analyserL, analyserR }) => {
     canvasContextRef.current.beginPath();
     const unitLength = (oscilloscopeSettings.width / dynamicRange) 
     // console.log({unitLength: unitLength})
-
+    let maxL = 0, maxR = 0;
     for (let i=0; i<bufferLength; i++){
-      const xVal = bufferR[i] * unitLength;
+      const xVal = bufferL[i] * unitLength;
 
       // yValues inverted since canvas grid y-axis increases **downwards**
-      const yVal = (dynamicRange - bufferL[i] - 1) * unitLength;
+      const yVal = (dynamicRange - bufferR[i] - 1) * unitLength;
       canvasContextRef.current.lineTo(xVal, yVal);
+
+      if (bufferL[i] > maxL){
+        maxL = bufferL[i]
+      }
+
+      if (bufferR[i] > maxR){
+        maxR = bufferR[i]
+      } 
     }
- 
+    console.log({maxL: maxL, maxR: maxR})
     canvasContextRef.current.stroke();
 };
 
