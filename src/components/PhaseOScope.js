@@ -14,12 +14,14 @@ import DragAndDrop from "./DragAndDrop";
 import PlayList from './PlayList'
 import Waveform from './Waveform'
 import { AppContext } from './AppContext'
+import ResizingOscilloscope from './ResizingOscilloscope'
 
 const PhaseOScope = () => {
     const {selectedTrack, setSelectedTrack} = useContext(AppContext)
     const [analyserL, setAnalyserL] = useState(null);
     const [analyserR, setAnalyserR] = useState(null);
     const [files, setFiles] = useState([]);
+    const [showSpectrogram, setShowSpectrogram] = useState(false)
     
     // drag and drop reducer
     // adapted from https://github.com/chidimo/react-dnd
@@ -45,16 +47,19 @@ const PhaseOScope = () => {
       return (<AppWrapper>
     <Top>
         <Left>           
-            <PlayList files={data.fileList}/>
             <DragAndDropWrapper>
             <DragAndDrop data={data} dispatch={dispatch} />
             </DragAndDropWrapper>
+            <PlayList files={data.fileList}/>
         </Left>
         <Right>
         <OscilloscopeWrapper>
         {analyserR && (
             <Oscilloscope analyserL={analyserL} analyserR={analyserR} />
           )}
+            {/* {analyserR && (
+            <ResizingOscilloscope analyserL={analyserL} analyserR={analyserR} />
+          )} */}
           </OscilloscopeWrapper>
         </Right>
         </Top>
@@ -64,9 +69,10 @@ const PhaseOScope = () => {
             setAnalyserL={setAnalyserL}
             setAnalyserR={setAnalyserR}
             files={data.fileList}
+            showSpectrogram={showSpectrogram}
           />
           </WaveformWrapper>
-    </Bottom>
+              </Bottom>
      </AppWrapper>)
 }
 
@@ -91,7 +97,7 @@ const AppWrapper = styled.div`
 const Left = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
 `;
 
 const Right = styled.div``;
@@ -103,6 +109,7 @@ const DragAndDropWrapper = styled.div`
 const Top = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 `;
 
 const Bottom = styled.div``;

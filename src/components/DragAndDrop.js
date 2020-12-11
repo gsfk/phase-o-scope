@@ -56,16 +56,8 @@ const DragAndDrop = ({ data, dispatch }) => {
   };
 
   const handleOpen = (e) =>{
-    console.log({openEvent: e})
-    console.log({openEventFile: e.target.files[0]})
     e.preventDefault();         //this doesn't work
     e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation(); //this doesn't work either
-    e.nativeEvent.preventDefault();  //or this
-    e.nativeEvent.stopPropagation();
-    console.log({e:e})
-    debugger;
-
     // add file to state 
    try { 
     const file = e.target.files[0]
@@ -102,7 +94,7 @@ const DragAndDropArea = styled.div`
   width: 100%;
   margin: ${DragAndDropSettings.margin};
   padding: ${DragAndDropSettings.padding};
-  max-width: ${DragAndDropSettings.maxWidth};
+  /* max-width: ${DragAndDropSettings.maxWidth}; */
   border-radius: ${DragAndDropSettings.borderRadius};
   text-align: center;
   background-color: ${props => props.isHovering ? "#404840" : "#012401" };

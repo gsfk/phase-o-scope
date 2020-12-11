@@ -24,7 +24,7 @@ export const DragAndDropSettings = {
 }
 
 export const waveformSettings = {
-    height: 150,
+    height: 90,
     waveColour: "#01dd01",
     progressColour: "black",
     cursorColor: "black",

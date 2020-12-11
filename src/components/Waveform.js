@@ -1,28 +1,22 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import WaveSurfer from "wavesurfer.js";
+import SpectrogramPlugin from 'wavesurfer.js/src/plugin/spectrogram'
+import styled from 'styled-components'
+import colormap from 'colormap'
 
 import { oscilloscopeSettings, waveformSettings } from "../constants";
 import { AppContext } from "./AppContext";
+import {colorMap} from '../assets/colourmap.js'
 
-const formWaveSurferOptions = (ref) => ({
-  container: ref,
-  waveColor: waveformSettings.waveColour,
-  progressColor: waveformSettings.progressColour,
-  cursorColor: waveformSettings.cursorColour,
-  barWidth: 1,
-  barRadius: 1,
-  responsive: true,
-  height: waveformSettings.height,
-  // If true, normalize by the maximum peak instead of 1.0.
-  normalize: false ,
-  // Use the PeakCache to improve rendering speed of large waveforms.
-  partialRender: true,
-});
 
 // url={URL.createObjectURL(selectedTrack)}
 
-export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
+export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectrogram }) {
   const { selectedTrack, setSelectedTrack } = useContext(AppContext);
+  
+  
+
+
   //TODO: Waveform has no idea where selected file is in playlist
   //will this handle a change in file at all?
   // see wavesurfer.on() documentation
@@ -41,8 +35,41 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
 
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
+  const spectrogramRef = useRef(null)
   const [playing, setPlay] = useState(false);
   const [volume, setVolume] = useState(0.5);
+
+  const formWaveSurferOptions = (waveRef, spectRef) => ({
+    container: waveRef,
+    waveColor: waveformSettings.waveColour,
+    progressColor: waveformSettings.progressColour,
+    cursorColor: waveformSettings.cursorColour,
+    barWidth: 1,
+    barRadius: 1,
+    responsive: true,
+    height: waveformSettings.height,
+    // If true, normalize by the maximum peak instead of 1.0.
+    normalize: false ,
+    // Use the PeakCache to improve rendering speed of large waveforms.
+    partialRender: true,
+    plugins: [
+        SpectrogramPlugin.create({
+          container: spectRef,
+          labels: false,
+          resize: false,
+          responsive: true,
+          colorMap: colorMap,
+      })
+  ]
+  });
+
+// START HERE
+// GETTING SPECTROGRAM TO WORK
+// SOME SORT OF V2 ISSUE
+
+
+
+
 
   // create new WaveSurfer instance
   // On component mount
@@ -50,10 +77,10 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
     if (!selectedTrack){
         return
     }
-
     setPlay(false);
 
-    const options = formWaveSurferOptions(waveformRef.current);
+
+    const options = formWaveSurferOptions(waveformRef.current, spectrogramRef.current);
     wavesurfer.current = WaveSurfer.create(options);
     wavesurfer.current.load(URL.createObjectURL(selectedTrack));
 
@@ -110,6 +137,8 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
       }
     });
 
+    wavesurfer.current.playPause();
+
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy();
@@ -134,10 +163,15 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
     }
   };
 
+  if(spectrogramRef){
+      console.log({spectrogramRef: spectrogramRef})
+  }
+
+//   FIX UGLY CONTROLS
   return (
     <div>
       <div id="waveform" ref={waveformRef} />
-      <div className="controls">
+      <div className="controls">                
         <button onClick={handlePlayPause}>{!playing ? "Play" : "Pause"}</button>
         <input
           type="range"
@@ -152,10 +186,18 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files }) {
           defaultValue={volume}
         />
         <label htmlFor="volume">Volume</label>
+        <SpectrogramWrapper>
+        <div ref={spectrogramRef}/>
+        </SpectrogramWrapper>
       </div>
     </div>
   );
 }
+
+
+const SpectrogramWrapper = styled.div``;
+
+
 
 // https://github.com/katspaugh/wavesurfer.js/blob/master/example/playlist/app.js
 // To go to the next track on finish
