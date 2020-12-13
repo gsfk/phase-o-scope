@@ -2,19 +2,20 @@ import React, { useEffect, useRef, useState, useContext } from "react";
 import WaveSurfer from "wavesurfer.js";
 import SpectrogramPlugin from 'wavesurfer.js/src/plugin/spectrogram'
 import styled from 'styled-components'
-import colormap from 'colormap'
+
 
 import { oscilloscopeSettings, waveformSettings } from "../constants";
 import { AppContext } from "./AppContext";
 import {colorMap} from '../assets/colourmap.js'
-
+import PlayIcon from './PlayIcon'
+import PauseIcon from './PauseIcon'
 
 // url={URL.createObjectURL(selectedTrack)}
 
 export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectrogram }) {
-  const { selectedTrack, setSelectedTrack } = useContext(AppContext);
+  const { selectedTrack, setSelectedTrack, isLoading, setIsLoading } = useContext(AppContext);
   
-  
+
 
 
   //TODO: Waveform has no idea where selected file is in playlist
@@ -37,48 +38,40 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
   const wavesurfer = useRef(null);
   const spectrogramRef = useRef(null)
   const [playing, setPlay] = useState(false);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(1);
 
   const formWaveSurferOptions = (waveRef, spectRef) => ({
     container: waveRef,
     waveColor: waveformSettings.waveColour,
     progressColor: waveformSettings.progressColour,
     cursorColor: waveformSettings.cursorColour,
+    cursorWidth: 2,
     barWidth: 1,
     barRadius: 1,
     responsive: true,
     height: waveformSettings.height,
-    // If true, normalize by the maximum peak instead of 1.0.
     normalize: false ,
-    // Use the PeakCache to improve rendering speed of large waveforms.
     partialRender: true,
     plugins: [
         SpectrogramPlugin.create({
           container: spectRef,
           labels: false,
-          resize: false,
+          resize: true,
           responsive: true,
+          fftSamples: 512,
           colorMap: colorMap,
+          height: 20,
       })
   ]
   });
 
-// START HERE
-// GETTING SPECTROGRAM TO WORK
-// SOME SORT OF V2 ISSUE
-
-
-
-
-
-  // create new WaveSurfer instance
-  // On component mount
+  // create new WaveSurfer instance on mount
   useEffect(() => {
     if (!selectedTrack){
         return
     }
     setPlay(false);
-
+    setIsLoading(true)
 
     const options = formWaveSurferOptions(waveformRef.current, spectrogramRef.current);
     wavesurfer.current = WaveSurfer.create(options);
@@ -105,8 +98,7 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
     //                  ----> analyserL ----|
     //                  |                   v
     // source -> splitter --> analyserR --> merger -> destination
-
-    // sourceObj.connect(splitter);
+ 
     splitter.connect(analyserLeft, 0, 0);
     splitter.connect(analyserRight, 1, 0);
     analyserLeft.connect(merger, 0, 0);
@@ -115,7 +107,7 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
     // merger.connect(contextObj.destination)
     wavesurfer.current.backend.setFilters([
       splitter,
-    //   analyserLeft,      //do not connect analysers, this flattens to mono
+    //   analyserLeft,      //do not connect analysers here, this flattens to mono
     //   analyserRight,
       merger,
     ]);
@@ -135,9 +127,15 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
         wavesurfer.current.setVolume(volume);
         setVolume(volume);
       }
+      setIsLoading(false)
+      wavesurfer.current.play();
+
     });
 
-    wavesurfer.current.playPause();
+    // wavesurfer.on('load', wavesurfer.current.play());
+
+
+    
 
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
@@ -163,8 +161,14 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
     }
   };
 
-  if(spectrogramRef){
-      console.log({spectrogramRef: spectrogramRef})
+  const showPlayIcon = () => {
+    if (playing) {
+        return false;
+    }
+      if(isLoading ){
+          return true
+      }
+      return false
   }
 
 //   FIX UGLY CONTROLS
@@ -172,8 +176,8 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
     <div>
       <div id="waveform" ref={waveformRef} />
       <div className="controls">                
-        <button onClick={handlePlayPause}>{!playing ? "Play" : "Pause"}</button>
-        <input
+        <Button onClick={handlePlayPause}><IconWrapper>{!playing || !isLoading ? <PlayIcon/> : <PauseIcon/>}</IconWrapper></Button>
+        {/* <input
           type="range"
           id="volume"
           name="volume"
@@ -185,7 +189,7 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
           onChange={onVolumeChange}
           defaultValue={volume}
         />
-        <label htmlFor="volume">Volume</label>
+        <label htmlFor="volume">Volume</label> */}
         <SpectrogramWrapper>
         <div ref={spectrogramRef}/>
         </SpectrogramWrapper>
@@ -197,7 +201,20 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
 
 const SpectrogramWrapper = styled.div``;
 
+const IconWrapper = styled.div`
+    background-color: ${oscilloscopeSettings.backgroundColour} ;
+    /* border: 1px solid black; */
+    margin: 0;
+    padding: 0;
+`;
 
+const Button = styled.button`
+    border: 0;
+
+    :focus {
+        outline: none;
+    }
+`;
 
 // https://github.com/katspaugh/wavesurfer.js/blob/master/example/playlist/app.js
 // To go to the next track on finish

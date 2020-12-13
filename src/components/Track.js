@@ -24,6 +24,10 @@ const Track = ({file}) => {
         console.log(`clickUp`)
     }
 
+    // ADD CONTROLS 
+    // MAY HAVE TO REJIG HOW SELECTED TRACK WORKS
+    // PLAY BUTTON ON UNSELECTED? FAINT PLAY BUTTON?
+    // don't worry about duplicate tracks for now 
 
 
     return <Wrapper
@@ -40,7 +44,7 @@ const Wrapper = styled.div`
     background-color: ${props => props.isClicked ? "#404840" : "#012401"};
     width: 100%auto;
     padding: 10px 20px;
-    margin: 10px;
+    margin: 5px;
     border: 3px solid black;
     border-radius: 50px / 50px;
     font-weight: 800;

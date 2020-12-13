@@ -1,11 +1,13 @@
 export const oscilloscopeSettings = {
-    width: 512,
+    width: 450,
+    smallWidth: 300,
+    largeWidth: 512,
     minDecibels: -90,
     maxDecibels: -1,
     smoothingTimeConstant: 0.8,
     fftSize: 2048,
     scanColour: "#01dd01",
-    margin: 10,
+    margin: 5,
     padding: 0,
     border: "3px solid black",
     backgroundColour: "#012501",
@@ -13,11 +15,11 @@ export const oscilloscopeSettings = {
 }
 
 export const DragAndDropSettings = {
-    maxWidth: "200px",
+    maxWidth: "250px",
     maxHeight: "100px",
     bgColour: "#012401",
     hoverColour: "grey",
-    margin: "10px",
+    margin: "5px",
     padding: "30px",
     borderRadius: "5px", 
     border: "3px solid black",

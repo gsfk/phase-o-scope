@@ -80,10 +80,12 @@ const DragAndDrop = ({ data, dispatch }) => {
       onDrop={(ev) => handleDrop(ev)}
       isHovering={isHovering}
     >
+      <Title>PHASE-O-SCOPE</Title>
        <IconWrapper> <FiUpload size="2em" /></IconWrapper>
       <OpenFile id="open" type="file" accept="audio/*" onChange={(e) => handleOpen(e)} />
       <Label htmlFor="open">Open a file </Label>
       <span>or drag here</span>
+      {/* <ThenClick>Then click file to load</ThenClick> */}
     </DragAndDropArea>
   );
 };
@@ -92,7 +94,7 @@ const DragAndDropArea = styled.div`
   color: #01dd01;
   font-weight: bold;
   width: 100%;
-  margin: ${DragAndDropSettings.margin};
+
   padding: ${DragAndDropSettings.padding};
   /* max-width: ${DragAndDropSettings.maxWidth}; */
   border-radius: ${DragAndDropSettings.borderRadius};
@@ -102,6 +104,12 @@ const DragAndDropArea = styled.div`
   box-shadow: ${boxShadow};
   border: ${DragAndDropSettings.border} 
 `;
+
+const Title = styled.p`
+  font-weight: bold;
+  margin-bottom: 20px;
+`;
+
 
 //hide ugly input rectangle
 const OpenFile = styled.input`
@@ -120,5 +128,10 @@ const Label = styled.label`
 const IconWrapper = styled.div`
     margin: 10px;
 `;
+
+const ThenClick = styled.p`
+  margin: 5px;
+`;
+
 
 export default DragAndDrop;
