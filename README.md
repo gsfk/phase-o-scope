@@ -10,8 +10,8 @@ Load any number of audio tracks into the player, and click a track to play. The 
 
   </tr>
   <tr>
-    <td><img src="./src/assets/in-phase.png" width="250"></td>
-    <td><img src="./src/assets/out-of-phase.png" width="250"></td>
+    <td><img src="./src/assets/in-phase.png" width="300"></td>
+    <td><img src="./src/assets/out-of-phase.png" width="300"></td>
   </tr>
  </table>
 
