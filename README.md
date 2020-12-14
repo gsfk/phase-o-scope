@@ -1,7 +1,10 @@
 # Phase-o-scope
+
+Try the [Live demo](https://phase-o-scope.netlify.app). Load any number of audio tracks into the player, and click a track to play. 
+
 Back when I was a full-time broadcaster and spent my evenings in a windowless studio, one source of both fun and useful information was the "phase-o-scope," a single-purpose oscilloscope that worked only in "xy mode", showing the stereo spread of an audio signal by drawing [Lissajous patterns](https://en.wikipedia.org/wiki/Lissajous_curve). 
 
-Load any number of audio tracks into the player, and click a track to play. The pattern for in-phase audio will group roughly around the line y=x (the diagonal line from top right to bottom left of the display), although tracks with a broader stereo signal will deviate more. A pattern oriented around y=-x (top left to bottom right) is a sign of phase cancellation.  
+The pattern for in-phase audio will group roughly around the line y=x (the diagonal line from top right to bottom left of the display), although tracks with a broader stereo signal will deviate more. A pattern oriented around y=-x (top left to bottom right) is a sign of phase cancellation.  
   
 <table>
   <tr>
