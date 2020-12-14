@@ -16,5 +16,6 @@ Load any number of audio tracks into the player, and click a track to play. The 
  </table>
 
 
+The "extreme green" look is a tribute to the glowing green CRT display typical of an old oscilloscope.
 
-Phase-o-scope is an ogoing project written in React.js. The oscilloscope portion is hand-coded using the html Canvas and Web Audio APIs, while the waveform and spectrogram at the bottom of the page use [wavesurfer.js](https://wavesurfer-js.org). 
+Phase-o-scope is an ongoing project written in React.js. The oscilloscope portion is hand-coded using the html Canvas and Web Audio APIs, while the waveform and spectrogram at the bottom of the page use [wavesurfer.js](https://wavesurfer-js.org). 
