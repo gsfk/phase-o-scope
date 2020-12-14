@@ -5,9 +5,7 @@ import {oscilloscopeSettings} from '../constants'
 // range of ByteData
 const dynamicRange = 256;
 
-const Oscilloscope = ({ analyserL, analyserR }) => {
-  console.log({analyserR: analyserR})
-
+const Oscilloscope = ({ analyserL, analyserR, width }) => {
   const canvasRef = useRef(null);
   const canvasContextRef = useRef(null);
 
@@ -23,7 +21,7 @@ const Oscilloscope = ({ analyserL, analyserR }) => {
     canvasContextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     canvasContextRef.current.fillStyle = oscilloscopeSettings.scanColour;
     canvasContextRef.current.beginPath();
-    const unitLength = (oscilloscopeSettings.width / dynamicRange) 
+    const unitLength = (width / dynamicRange) 
     // console.log({unitLength: unitLength})
     let maxL = 0, maxR = 0;
     for (let i=0; i<bufferLength; i++){
@@ -48,10 +46,10 @@ const Oscilloscope = ({ analyserL, analyserR }) => {
 //   canvas init
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = oscilloscopeSettings.width*2;
-    canvas.height = oscilloscopeSettings.width*2;
-    canvas.style.width = `${oscilloscopeSettings.width}px`;
-    canvas.style.height = `${oscilloscopeSettings.width}px`;
+    canvas.width = width*2;
+    canvas.height = width*2;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${width}px`;
 
     const context = canvas.getContext("2d");
     context.scale(2, 2);
@@ -62,7 +60,7 @@ const Oscilloscope = ({ analyserL, analyserR }) => {
     draw()
   }, [analyserL]);
 
-  return <canvas width={oscilloscopeSettings.width} height={oscilloscopeSettings.width} ref={canvasRef} />;
+  return <canvas width={width} height={width} ref={canvasRef} />;
 
 };
  

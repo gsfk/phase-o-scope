@@ -5,6 +5,9 @@ import {boxShadow} from '../constants'
 
 import { AppContext } from './AppContext'
 
+
+// TODO: add controls
+
 const Track = ({file}) => {   
     const {selectedTrack, setSelectedTrack} = useContext(AppContext)
     const [isClicked, setIsClicked] = useState(false)
@@ -24,12 +27,6 @@ const Track = ({file}) => {
         console.log(`clickUp`)
     }
 
-    // ADD CONTROLS 
-    // MAY HAVE TO REJIG HOW SELECTED TRACK WORKS
-    // PLAY BUTTON ON UNSELECTED? FAINT PLAY BUTTON?
-    // don't worry about duplicate tracks for now 
-
-
     return <Wrapper
         onClick={handleClick}
         onMouseDown={handleMouseDown}
@@ -42,13 +39,19 @@ const Track = ({file}) => {
 const Wrapper = styled.div`
     color: #01dd01;
     background-color: ${props => props.isClicked ? "#404840" : "#012401"};
-    width: 100%auto;
+    width: 100%;
+    max-width: 300px;
     padding: 10px 20px;
-    margin: 5px;
+    margin: 5px 5px 0px 5px;;
     border: 3px solid black;
     border-radius: 50px / 50px;
     font-weight: 800;
-    box-shadow: ${boxShadow}
+    box-shadow: ${boxShadow};
+
+    @media (max-width: 728px) {
+    width: 300px;
+    margin: 5px;
+  }
 `;
 
 export default Track;

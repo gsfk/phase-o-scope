@@ -10,30 +10,12 @@ import {colorMap} from '../assets/colourmap.js'
 import PlayIcon from './PlayIcon'
 import PauseIcon from './PauseIcon'
 
-// url={URL.createObjectURL(selectedTrack)}
+// TODO: instantiate waveform once in App Context, instead of per track
+
 
 export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectrogram }) {
   const { selectedTrack, setSelectedTrack, isLoading, setIsLoading } = useContext(AppContext);
   
-
-
-
-  //TODO: Waveform has no idea where selected file is in playlist
-  //will this handle a change in file at all?
-  // see wavesurfer.on() documentation
-
-    // need to create new wavesurfer on change of file, or no?
-    // certainly don't need to create new audio context every time. 
-    // wavesurfer.on("finish", () => .....) can move to next track
-
-    // can't we just create an audio chain conditionally when there 
-    // are files to play?... rather than useEffect
-    // there will be no files at all on first render
-    // OR, on first render we could have a greyed out placeholder 
-    // that's the same size as the waveform
-    // another option is always having an example file loaded, 
-    // and that's the waveform you see. 
-
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const spectrogramRef = useRef(null)
@@ -203,7 +185,6 @@ const SpectrogramWrapper = styled.div``;
 
 const IconWrapper = styled.div`
     background-color: ${oscilloscopeSettings.backgroundColour} ;
-    /* border: 1px solid black; */
     margin: 0;
     padding: 0;
 `;

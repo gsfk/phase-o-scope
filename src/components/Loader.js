@@ -1,12 +1,12 @@
 import React from 'react';
-import { Preloader, TailSpin, Oval, Audio } from 'react-preloader-icon';
+import { Preloader, Oval } from 'react-preloader-icon';
 
 import {oscilloscopeSettings} from '../constants'
 
-const Loader = () => {
+const Loader = ({size}) => {
     return <Preloader
       use={Oval}
-      size={128}
+      size={size}
       strokeWidth={2}
       strokeColor={oscilloscopeSettings.scanColour}
       duration={3000}

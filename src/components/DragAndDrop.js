@@ -69,9 +69,6 @@ const DragAndDrop = ({ data, dispatch }) => {
 
   }
  
-
-
-
   return (
     <DragAndDropArea
       onDragEnter={(ev) => handleDragEnter(ev)}
@@ -96,7 +93,7 @@ const DragAndDropArea = styled.div`
   width: 100%;
 
   padding: ${DragAndDropSettings.padding};
-  /* max-width: ${DragAndDropSettings.maxWidth}; */
+  width: 100%;
   border-radius: ${DragAndDropSettings.borderRadius};
   text-align: center;
   background-color: ${props => props.isHovering ? "#404840" : "#012401" };

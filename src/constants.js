@@ -7,7 +7,7 @@ export const oscilloscopeSettings = {
     smoothingTimeConstant: 0.8,
     fftSize: 2048,
     scanColour: "#01dd01",
-    margin: 5,
+    margin: 0,
     padding: 0,
     border: "3px solid black",
     backgroundColour: "#012501",

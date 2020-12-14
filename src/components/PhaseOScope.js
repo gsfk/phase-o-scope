@@ -9,16 +9,12 @@ import {
   oscilloscopeSettings,
   waveformSettings,
   border,
-  DragAndDropSettings
+  DragAndDropSettings,
 } from "../constants";
 import DragAndDrop from "./DragAndDrop";
 import PlayList from "./PlayList";
 import Waveform from "./Waveform";
 import { AppContext } from "./AppContext";
-import Controls from './Controls'
-import Header from './Header'
-
-// import ResizingOscilloscope from './ResizingOscilloscope'
 
 const PhaseOScope = () => {
   const { selectedTrack, setSelectedTrack, loading } = useContext(AppContext);
@@ -50,52 +46,63 @@ const PhaseOScope = () => {
     fileList: [],
   });
 
-  return (<>
-
-    <AppWrapper>
-      <Top>
-        <Left>
-          <DragAndDropWrapper>
-            <DragAndDrop data={data} dispatch={dispatch} />
-          </DragAndDropWrapper>
-          <PlayList files={data.fileList} />
-        </Left>
-        <Right>
-          <OscilloscopeWrapper>
-            {loading && (
-              <LoadWrapper>
-                <Loader />
-              </LoadWrapper>
-            )}
-            {analyserR && (
-              <Oscilloscope analyserL={analyserL} analyserR={analyserR} />
-            )}
-          </OscilloscopeWrapper>
-        </Right>
-      </Top>
-      <Bottom>
-        {selectedTrack && (
-          <WaveformWrapper>
-            <Waveform
-              setAnalyserL={setAnalyserL}
-              setAnalyserR={setAnalyserR}
-              files={data.fileList}
-              showSpectrogram={showSpectrogram}
-            />
-          </WaveformWrapper>
-        )}
-      </Bottom>
-    </AppWrapper>
+  return (
+    <>
+      <AppWrapper>
+        <Top>
+          <Left>
+            <DragAndDropWrapper>
+              <DragAndDrop data={data} dispatch={dispatch} />
+            </DragAndDropWrapper>
+            <PlayList files={data.fileList} />
+          </Left>
+          <Right>
+            <OscilloscopeWrapper>
+              <SmallOscilloscope>
+              {loading && (
+                  <LoadWrapper>
+                    <Loader size={64} />
+                  </LoadWrapper>
+                )}
+                {analyserR && (
+                  <Oscilloscope analyserL={analyserL} analyserR={analyserR} width={oscilloscopeSettings.smallWidth} />
+                )}
+              </SmallOscilloscope>
+              <StandardOscilloscope>
+                {loading && (
+                  <LoadWrapper>
+                    <Loader size={128} />
+                  </LoadWrapper>
+                )}
+                {analyserR && (
+                  <Oscilloscope analyserL={analyserL} analyserR={analyserR} width={oscilloscopeSettings.width} />
+                )}
+              </StandardOscilloscope>
+            </OscilloscopeWrapper>
+          </Right>
+        </Top>
+        <Bottom>
+          {selectedTrack && (
+            <WaveformWrapper>
+              <Waveform
+                setAnalyserL={setAnalyserL}
+                setAnalyserR={setAnalyserR}
+                files={data.fileList}
+                showSpectrogram={showSpectrogram}
+              />
+            </WaveformWrapper>
+          )}
+        </Bottom>
+      </AppWrapper>
     </>
   );
 };
 
-const HeaderWrapper  = styled.div`
-  width: 100%;
-  align-self: flex-start;
-`;
 
 const OscilloscopeWrapper = styled.div`
+`;
+
+const StandardOscilloscope = styled.div`
   width: ${oscilloscopeSettings.width}px;
   height: ${oscilloscopeSettings.width}px;
   margin: ${oscilloscopeSettings.margin}px;
@@ -103,49 +110,80 @@ const OscilloscopeWrapper = styled.div`
   border: ${oscilloscopeSettings.border};
   border-radius: ${oscilloscopeSettings.borderRadius};
   box-shadow: ${boxShadow};
+
+  @media (max-width: 810px) {
+    display: none;
+  }
 `;
 
 const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 85vw;
+  margin: 10px 20px;
 
-  margin: 0 auto;
+  @media (max-width: 810px) {
+    align-items: center;
+    margin: 0px 20px;
+  }
+
 `;
 
 const Left = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* width: 100; */
+  margin: 0px;
 `;
 
-const Right = styled.div``;
+const Right = styled.div`
+`;
 
 const DragAndDropWrapper = styled.div`
   display: flex;
   margin: ${DragAndDropSettings.margin};
-  max-width: ${DragAndDropSettings.maxWidth};
+  /* max-width: ${DragAndDropSettings.maxWidth}; */
+  width: 300px;
+
+  @media (max-width: 810px) {
+    width: 300px;
+  }
+
 `;
 const Top = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
-  @media (max-width: 728px) {
+  @media (max-width: 810px) {
     flex-direction: column;
   }
-
-
 `;
 
-const Bottom = styled.div``;
+const Bottom = styled.div`
+  width: 100%;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 810px) {
+    width: 105%;   
+    margin: 0;
+    align-items: center;
+  }
+
+`;
 
 const WaveformWrapper = styled.div`
   margin: 5px;
   border: ${border};
   background-color: ${waveformSettings.bgColour};
   box-shadow: ${boxShadow};
+  width: 100%;
+
+  @media (max-width: 810px) {
+    width: 300px;
+    margin: 10px 0;
+  }
 `;
 
 const LoadWrapper = styled.div`
@@ -153,12 +191,32 @@ const LoadWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 190px;
+
+  @media (max-width: 810px) {
+    padding: 10x;
+  }
 `;
 
 const ControlsWrapper = styled.div`
   display: flex;
   margin: 5px;
-  
-  `;
+`;
+
+const SmallOscilloscope = styled.div`
+  display: none;
+
+  @media (max-width: 810px) {
+    width: ${oscilloscopeSettings.smallWidth}px;
+    height: ${oscilloscopeSettings.smallWidth}px;
+    margin: ${oscilloscopeSettings.margin}px;
+    background-color: ${oscilloscopeSettings.backgroundColour};
+    border: ${oscilloscopeSettings.border};
+    border-radius: ${oscilloscopeSettings.borderRadius};
+    box-shadow: ${boxShadow};
+
+    display: block;
+    margin: 0 auto;
+  }
+`;
 
 export default PhaseOScope;
