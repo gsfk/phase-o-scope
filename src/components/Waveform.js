@@ -74,7 +74,7 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
 
     const splitter = wavesurfer.current.backend.ac.createChannelSplitter(2);
     const merger = wavesurfer.current.backend.ac.createChannelMerger(2);
-    const gainNode = wavesurfer.current.backend.ac.createGain();
+    // const gainNode = wavesurfer.current.backend.ac.createGain();
 
     // audio routing graph:
     //                  ----> analyserL ----|
@@ -133,25 +133,25 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
     wavesurfer.current.playPause();
   };
 
-  const onVolumeChange = (e) => {
-    const { target } = e;
-    const newVolume = +target.value;
+  // const onVolumeChange = (e) => {
+  //   const { target } = e;
+  //   const newVolume = +target.value;
 
-    if (newVolume) {
-      setVolume(newVolume);
-      wavesurfer.current.setVolume(newVolume || 1);
-    }
-  };
+  //   if (newVolume) {
+  //     setVolume(newVolume);
+  //     wavesurfer.current.setVolume(newVolume || 1);
+  //   }
+  // };
 
-  const showPlayIcon = () => {
-    if (playing) {
-        return false;
-    }
-      if(isLoading ){
-          return true
-      }
-      return false
-  }
+  // const showPlayIcon = () => {
+  //   if (playing) {
+  //       return false;
+  //   }
+  //     if(isLoading ){
+  //         return true
+  //     }
+  //     return false
+  // }
 
 //   FIX UGLY CONTROLS
   return (
