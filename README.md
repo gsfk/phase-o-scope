@@ -1,6 +1,6 @@
 # Phase-o-scope
 
-Try the [Live demo](https://phase-o-scope.netlify.app). Load any number of audio tracks into the player, and click a track to play. 
+*Try the [live demo](https://phase-o-scope.netlify.app): load any number of audio tracks into the player, and click a track to play. Or see a quick [YouTube walkthrough](https://youtu.be/Astgn6smLUE).*
 
 Back when I was a full-time broadcaster and spent my evenings in a windowless studio, one source of both fun and useful information was the "phase-o-scope," a single-purpose oscilloscope that worked only in "xy mode", showing the stereo spread of an audio signal by drawing [Lissajous patterns](https://en.wikipedia.org/wiki/Lissajous_curve). 
 

@@ -20,10 +20,7 @@ const PhaseOScope = () => {
   const { selectedTrack, setSelectedTrack, loading } = useContext(AppContext);
   const [analyserL, setAnalyserL] = useState(null);
   const [analyserR, setAnalyserR] = useState(null);
-  const [files, setFiles] = useState([]);
   const [showSpectrogram, setShowSpectrogram] = useState(false);
-
-  console.log({ selectedTrack: selectedTrack });
 
   // drag and drop reducer
   // adapted from https://github.com/chidimo/react-dnd
@@ -197,10 +194,10 @@ const LoadWrapper = styled.div`
   }
 `;
 
-const ControlsWrapper = styled.div`
-  display: flex;
-  margin: 5px;
-`;
+// const ControlsWrapper = styled.div`
+//   display: flex;
+//   margin: 5px;
+// `;
 
 const SmallOscilloscope = styled.div`
   display: none;
