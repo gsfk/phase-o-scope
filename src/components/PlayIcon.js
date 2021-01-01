@@ -1,5 +1,4 @@
 import {FaRegPlayCircle } from "react-icons/fa";
-import {oscilloscopeSettings} from '../constants'
 
 const PlayIcon = () => {
     return (<FaRegPlayCircle

@@ -158,7 +158,7 @@ export default function Waveform({ setAnalyserL, setAnalyserR, files, showSpectr
     <div>
       <div id="waveform" ref={waveformRef} />
       <div className="controls">                
-        <Button onClick={handlePlayPause}><IconWrapper>{!playing || !isLoading ? <PlayIcon/> : <PauseIcon/>}</IconWrapper></Button>
+        <Button onClick={handlePlayPause}><IconWrapper>{playing ? <PlayIcon/> : <PauseIcon/>}</IconWrapper></Button>
         {/* <input
           type="range"
           id="volume"
@@ -197,7 +197,6 @@ const Button = styled.button`
     }
 `;
 
-// https://github.com/katspaugh/wavesurfer.js/blob/master/example/playlist/app.js
 // To go to the next track on finish
 //   wavesurfer.on('finish', function() {
 //     setCurrentSong((currentTrack + 1) % links.length);

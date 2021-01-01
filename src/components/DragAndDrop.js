@@ -82,7 +82,6 @@ const DragAndDrop = ({ data, dispatch }) => {
       <OpenFile id="open" type="file" accept="audio/*" onChange={(e) => handleOpen(e)} />
       <Label htmlFor="open">Open a file </Label>
       <span>or drag here</span>
-      {/* <ThenClick>Then click file to load</ThenClick> */}
     </DragAndDropArea>
   );
 };
@@ -125,10 +124,5 @@ const Label = styled.label`
 const IconWrapper = styled.div`
     margin: 10px;
 `;
-
-const ThenClick = styled.p`
-  margin: 5px;
-`;
-
 
 export default DragAndDrop;
